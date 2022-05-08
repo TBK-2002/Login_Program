@@ -12,6 +12,7 @@
 #include <vector>
 #include <stdio.h>
 #include <conio.h>
+#include <regex>
 
 using namespace std;
 
@@ -39,6 +40,7 @@ bool isLogedIn = false;
 vector<user> users;
 const char BACKSPACE = 127;
 const char RETURN = 10;
+
 
 int main(){
     read();
@@ -135,10 +137,19 @@ void register_new_user(){
 }
 
 void get_name(string& n){
+
     cout << "Please enter your name: ";
     cin.ignore(256, '\n');
     getline(cin, n);
-    // Proper name conditons, use string.find(char).
+    regex valid_name("[a-zA-Z-]+");
+    if (regex_match(n,valid_name) == true){
+
+    }
+    else{
+        cout << "Please enter a valid name that contains characters and '-' only " << endl;
+        get_name(n);
+
+    }
 }
 
 void get_user(string& u){
@@ -192,6 +203,10 @@ void get_pass(string& p){
     }
 }
 
+void valid_email(){
+
+}
+
 void get_email(string& e){
     cout << "\nPlease enter your email: ";
     cin >> e;
@@ -203,7 +218,15 @@ void get_email(string& e){
             break;
         }
     }
-    // Right email conditons use regex library r5ma bas mohma.
+    regex valid_email("([\\w!#$%&'*+/=?^_`{|}~-]+[\\w!#$%&'.*+/=?^_`{|}~-]*[\\w!#$%&'*+/=?^_`{|}~-]+)@[\\w]+[\\w-]*(\\.[\\w-]+)+[\\w]+");
+    if(regex_match(e,valid_email) == true){
+        cout << "Succesfull Email !! " << endl;
+
+    }
+    else{
+        cout << "Please enter a valid email ";
+        get_email(e);
+    }
 }
 
 void get_mobile(string& m){
