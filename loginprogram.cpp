@@ -10,7 +10,6 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <stdio.h>
 #include <conio.h>
 #include <regex>
 
@@ -35,8 +34,8 @@ char action();
 bool check_pass();
 string encrypt(string p), decrypt(string p);
 
-int users_count, id;
-bool isLogedIn = false;
+int users_count, id, tries;
+bool isLoggedIn = false;
 vector<user> users;
 const char BACKSPACE = 127;
 const char RETURN = 10;
@@ -47,6 +46,7 @@ int main(){
     char input;
     while(input != '4'){
         input = action(); // Letting the user choose the action he wants to do.
+        tries = 0;
         switch (input)
         {
         case '1':
@@ -100,16 +100,6 @@ void read(){
     }
     users_count = i / 5;
     data_file.close();
-    // cout << users[0].id << endl;
-    // cout << users[0].username << endl;
-    // cout << users[0].password << endl;
-    // cout << users[0].email << endl;
-    // cout << users[0].mobile << endl;
-    // cout << users[1].id << endl;
-    // cout << users[1].username << endl;
-    // cout << users[1].password << endl;
-    // cout << users[1].email << endl;
-    // cout << users[1].mobile << endl;
 }
 
 char action(){
@@ -137,18 +127,14 @@ void register_new_user(){
 }
 
 void get_name(string& n){
-
     cout << "Please enter your name: ";
     cin.ignore(256, '\n');
     getline(cin, n);
+    cin.ignore(256, '\n');
     regex valid_name("[a-zA-Z-]+");
-    if (regex_match(n,valid_name) == true){
-
-    }
-    else{
+    if (!(regex_match(n,valid_name))){
         cout << "Please enter a valid name that contains characters and '-' only " << endl;
         get_name(n);
-
     }
 }
 
@@ -181,6 +167,7 @@ void get_pass(string& p){
             cout << '*';
         }
     }
+    cin.ignore(256, '\n');
     // Strong password conditions use string.find(char).
     cout << "\nEnter your password again: ";
     while((ch = getch()) != RETURN){
@@ -195,16 +182,13 @@ void get_pass(string& p){
             cout << '*';
         }
     }
+    cin.ignore(256, '\n');
     cout << endl;
     if(p != again){
         cout << "\nPassword does not match, Please try again.\n";
         p = "";
         get_pass(p);
     }
-}
-
-void valid_email(){
-
 }
 
 void get_email(string& e){
@@ -232,7 +216,7 @@ void get_email(string& e){
 void get_mobile(string& m){
     cout << "Please enter your mobile: ";
     cin >> m;
-    // Right mobile conditions use regix bardo.
+    // Right mobile conditions use regex bardo.
 }
 
 void write(user user1){
@@ -247,46 +231,64 @@ void write(user user1){
 }
 
 string encrypt(string p){
+    for(char c: p){
+        int x = c - 'A';
+        x = (5 * x + 8) % 26;
+        c = (char) x + 'A';
+    }
     return p;
 }
 
 string decrypt(string p){
+    for(char c: p){
+        int y = c - 'A';
+        y = 21 * (y - 8);
+        y = ((y % 26) + 26) % 26;
+        c = (char) y + 65;
+    }
     return p;
 }
 
 void login(){
-    isLogedIn = false;
+    isLoggedIn = false;
     char ch;
-    string p = "";
-    cout << "Please enter your ID: ";
-    cin >> id;
-    cin.ignore(256, '\n');
-    if(id >= users_count){
-        cout << "There is no registered user with this ID.\n";
-        login();
-    }
-    else{
-        cout << "Please enter your password: ";
-        while((ch = getch()) != RETURN){
-            if(ch == BACKSPACE){
-                if(p.length() != 0){
-                    cout << "\b \b";
-                    p.resize(p.length()-1);
-                }
-            }
-            else{
-                p+= ch;
-                cout << '*';
-            }
-        }
-        if(p == users[id].password){
-            cout << "\nSuccessful login, welcome " << users[id].name << endl;
-            isLogedIn = true;
+    while(!isLoggedIn){
+        string p = "";
+        cout << "Please enter your ID: ";
+        cin >> ch;
+        id = ch - '0';
+        cin.ignore(256, '\n');
+        if(id >= users_count){
+            cout << "There is no registered user with this ID.\n";
         }
         else{
-            cout << "\nIncorrect password, Please try again.\n";
-            login();
-            // Deny acces to system afer 3 tries.
+            cout << "Please enter your password: ";
+            while((ch = getch()) != RETURN){
+                if(ch == BACKSPACE){
+                    if(p.length() != 0){
+                        cout << "\b \b";
+                        p.resize(p.length()-1);
+                    }
+                }
+                else{
+                    p+= ch;
+                    cout << '*';
+                }
+            }
+            cin.ignore(256, '\n');
+            if(p == users[id].password){
+                cout << "\nSuccessful login, welcome " << users[id].name << endl;
+                isLoggedIn = true;
+                break;
+            }
+            else{
+                cout << "\nIncorrect password, Please try again.\n";
+                tries++;
+                if(tries == 3){
+                    cout << "You are denied to access system\n";
+                    break;
+                }
+            }
         }
     }
 }
@@ -295,7 +297,7 @@ void change_pass(){
     string p;
     cout << "Please login first.\n";
     login();
-    if(isLogedIn && check_pass()){
+    if(isLoggedIn && check_pass()){
         get_pass(p);
         users[id].password = p;
         write_all();
@@ -318,6 +320,7 @@ bool check_pass(){
             cout << '*';
         }
     }
+    cin.ignore(256, '\n');
     cout << endl;
     if(p == users[id].password){
         return true;
@@ -336,7 +339,7 @@ void write_all(){
         string pass = encrypt(users[i].password);
         data_file << pass << '\n';
         data_file << users[i].email << '\n';
-        data_file << users[i].mobile;
+        data_file << users[i].mobile << '\n';
     }
 	data_file.close();
 }
