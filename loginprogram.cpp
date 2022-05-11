@@ -130,7 +130,6 @@ void get_name(string& n){
     cout << "Please enter your name: ";
     cin.ignore(256, '\n');
     getline(cin, n);
-    cin.ignore(256, '\n');
     regex valid_name("[a-zA-Z-]+");
     if (!(regex_match(n,valid_name))){
         cout << "Please enter a valid name that contains characters and '-' only " << endl;
@@ -167,7 +166,6 @@ void get_pass(string& p){
             cout << '*';
         }
     }
-    cin.ignore(256, '\n');
     // Strong password conditions use string.find(char).
     cout << "\nEnter your password again: ";
     while((ch = getch()) != RETURN){
@@ -182,7 +180,6 @@ void get_pass(string& p){
             cout << '*';
         }
     }
-    cin.ignore(256, '\n');
     cout << endl;
     if(p != again){
         cout << "\nPassword does not match, Please try again.\n";
@@ -221,30 +218,32 @@ void get_mobile(string& m){
 
 void write(user user1){
     fstream data_file("users_data.txt", ios::app);
-    data_file << '\n' << user1.name;
-    data_file << '\n' << user1.username;
+    data_file << user1.name << '\n';
+    data_file << user1.username << '\n';
     string pass = encrypt(user1.password);
-    data_file << '\n' << pass;
-    data_file << '\n' << user1.email;
-    data_file << '\n' << user1.mobile;
+    data_file << pass << '\n';
+    data_file << user1.email << '\n';
+    data_file << user1.mobile << '\n';
 	data_file.close();
 }
 
 string encrypt(string p){
+    string enc = "";
     for(char c: p){
         int x = c - 'A';
         x = (5 * x + 8) % 26;
-        c = (char) x + 'A';
+        enc+= (char) x + 'A';
     }
-    return p;
+    return enc;
 }
 
 string decrypt(string p){
+    string dec = "";
     for(char c: p){
         int y = c - 'A';
         y = 21 * (y - 8);
         y = ((y % 26) + 26) % 26;
-        c = (char) y + 65;
+        dec+= (char) y + 'A';
     }
     return p;
 }
@@ -262,32 +261,12 @@ void login(){
             cout << "There is no registered user with this ID.\n";
         }
         else{
-            cout << "Please enter your password: ";
-            while((ch = getch()) != RETURN){
-                if(ch == BACKSPACE){
-                    if(p.length() != 0){
-                        cout << "\b \b";
-                        p.resize(p.length()-1);
-                    }
-                }
-                else{
-                    p+= ch;
-                    cout << '*';
-                }
-            }
-            cin.ignore(256, '\n');
-            if(p == users[id].password){
-                cout << "\nSuccessful login, welcome " << users[id].name << endl;
+            if(check_pass()){
+                cout << "Login Succesful\n";
                 isLoggedIn = true;
-                break;
             }
             else{
-                cout << "\nIncorrect password, Please try again.\n";
-                tries++;
-                if(tries == 3){
-                    cout << "You are denied to access system\n";
-                    break;
-                }
+                break;
             }
         }
     }
@@ -320,13 +299,17 @@ bool check_pass(){
             cout << '*';
         }
     }
-    cin.ignore(256, '\n');
     cout << endl;
     if(p == users[id].password){
         return true;
     }
     else{
         cout << "\nIcorrect password please try again.\n";
+        tries++;
+        if(tries == 3){
+            cout << "You are denied to access system\n";
+            return false;
+        }
         return check_pass();
     }
 }
