@@ -2,7 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "Assign_4"
+			"path" : "Assign_4.exe"
+		},
+		{
+			"path" : "Assign_4.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -68,12 +71,16 @@
 			{
 				"fragment" : "",
 				"role" : "flags"
+			},
+			{
+				"fragment" : "-lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32",
+				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"
 	},
 	"name" : "Assign_4",
-	"nameOnDisk" : "Assign_4",
+	"nameOnDisk" : "Assign_4.exe",
 	"paths" : 
 	{
 		"build" : ".",

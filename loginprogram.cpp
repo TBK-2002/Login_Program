@@ -3,7 +3,7 @@
 // Last Modification Date: 4/5/2022
 // Author 1: Nour El-Din Ahmed Hussein - 20210430 - Group A - s5
 // Author 2: Mohanad Hisham El-Tahawy - 20210413 - Group A - s5
-// Author 3: Nour Omar - -
+// Author 3: Nour Omar - 20210434 - Group A - s5
 // Teaching Assistant: Hagar Ali
 // Purpose: Login program.
 

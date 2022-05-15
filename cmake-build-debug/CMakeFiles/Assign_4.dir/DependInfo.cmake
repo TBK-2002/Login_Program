@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/media/nour/New Volume/FCI/Programming-1/assignment-4/Login_Program/loginprogram.cpp" "CMakeFiles/Assign_4.dir/loginprogram.cpp.o" "gcc" "CMakeFiles/Assign_4.dir/loginprogram.cpp.o.d"
+  "C:/Users/Mohannad/Desktop/Assign 4.1.1/Login_Program/loginprogram.cpp" "CMakeFiles/Assign_4.dir/loginprogram.cpp.obj" "gcc" "CMakeFiles/Assign_4.dir/loginprogram.cpp.obj.d"
   )
 
 # Targets to which this target links.

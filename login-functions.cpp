@@ -25,20 +25,20 @@ void read(){
         if (i % 4 == 0){
             id = i/4;
             getline(data_file, u);
-        }
+        } //making the first line for the user
         else if (i % 4 == 1){
             getline(data_file, p);
-        }
+        } //making second line for password
         else if (i % 4 == 2){
             getline(data_file, e);
-        }
+        } //making third line for email
         else if (i % 4 == 3){
             getline(data_file, m);
             users.push_back(user(id, u, decrypt(p), e, m));
-        }
+        } //making fourth line for mobile
         i++;
     }
-    users_count = i / 4;
+    users_count = i / 4; //giving the user an ID
     data_file.close();
 }
 
@@ -63,7 +63,7 @@ void register_new_user(){
     write(users[users_count]);
     cout << "Your account has been created succesfully your id is: " << users_count << endl;
     users_count++;
-}
+} //taking from the user all the information to make a new account for him
 
 // void get_name(string& n){
 //     cout << "Please enter your name: ";
@@ -85,30 +85,30 @@ void get_user(string& u){
             cout << "This username does already exist, try again.\n";
             get_user(u);
             break;
-        }
+        } //choosing for the user a name the didn't exist before
     }
     regex valid_name("[a-zA-Z-]+");
     if (!(regex_match(u,valid_name))){
         cout << "Please enter a valid name that contains characters and '-' only " << endl;
         get_user(u);
-    }
+    } //validation of the name
 }
 
 void get_pass(string& p){
     char ch;
     string again;
     cout << "Please choose a password (it has to contain upper case, lower case, digit and special characters): ";
-    while((ch = getch()) != RETURN){
+    while((ch = getch()) != RETURN){ //if he presses "Enter" the loop stops"
         if(ch == BACKSPACE){
             if(p.length() != 0){
                 cout << "\b \b";
                 p.resize(p.length()-1);
-            }
+            } //if he enters backspace it deletes what last thing was written but first it needs to check that there's a character written
         }
         else{
             p+= ch;
             cout << '*';
-        }
+        } //the password stores the character and put '*' instead of it on the screen
     }
     if (checklength(p) && checkdigit(p) && checklower(p) && checkupper(p) && checkspecial(p)){
         cout << "\nEnter your password again: ";
@@ -152,8 +152,7 @@ void get_email(string& e){
     regex valid_email("([\\w!#$%&'*+/=?^_`{|}~-]+[\\w!#$%&'.*+/=?^_`{|}~-]*[\\w!#$%&'*+/=?^_`{|}~-]+)@[\\w]+[\\w-]*(\\.[\\w-]+)+[\\w]+");
     if(regex_match(e,valid_email) == true){
         cout << "Succesfull Email !! " << endl;
-
-    }
+    } //validation of email
     else{
         cout << "Please enter a valid email ";
         get_email(e);
@@ -163,12 +162,10 @@ void get_email(string& e){
 void get_mobile(string& m){
     cout << "Please enter your mobile: ";
     cin >> m;
-    cout << "Please enter your mobile: ";
-    cin >> m;
     regex valid_mobile("[0][1][0|1|2|5][0-9]{8}+");
-    if (regex_match(m,valid_mobile)== true)
+    if (regex_match(m,valid_mobile) == true)
     {
-        cout << "succeful phone number";
+        cout << "successful phone number";
     }
     else
     {
@@ -185,7 +182,8 @@ void write(user user1){
     data_file << user1.email << '\n';
     data_file << user1.mobile << '\n';
 	data_file.close();
-}
+} //write function is used while registering new user to write all his info in the file
+
 
 string encrypt(string p){
     string enc = "";
@@ -195,7 +193,7 @@ string encrypt(string p){
         enc+= (char) x + 'A';
     }
     return enc;
-}
+} //applying aphine cipher
 
 string decrypt(string p){
     string dec = "";
@@ -206,7 +204,7 @@ string decrypt(string p){
         dec+= (char) y + 'A';
     }
     return p;
-}
+} //applying aphine cipher
 
 void login(){
     isLoggedIn = false;
@@ -215,11 +213,11 @@ void login(){
         string p = "";
         cout << "Please enter your ID: ";
         cin >> ch;
-        id = ch - '0';
+        id = ch - '0'; //turning the characters to integer
         cin.ignore(256, '\n');
         if(id >= users_count){
             cout << "There is no registered user with this ID.\n";
-        }
+        } //checking if the user entered correct id and didn't exceed the users counter
         else{
             if(check_pass()){
                 cout << "Login Succesful\n";
@@ -240,7 +238,7 @@ void change_pass(){
         get_pass(p);
         users[id].password = p;
         write_all();
-    }
+    } //clearing the password from the file and entering new one
 }
 
 bool check_pass(){
@@ -284,7 +282,7 @@ void write_all(){
         data_file << users[i].mobile << '\n';
     }
 	data_file.close();
-}
+} //writing all the file again with the same info. just changing the password
 
 
 bool checklength(string p)

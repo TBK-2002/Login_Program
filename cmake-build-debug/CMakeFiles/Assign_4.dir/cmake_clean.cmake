@@ -1,8 +1,10 @@
 file(REMOVE_RECURSE
-  "Assign_4"
+  "Assign_4.exe"
+  "Assign_4.exe.manifest"
   "Assign_4.pdb"
-  "CMakeFiles/Assign_4.dir/loginprogram.cpp.o"
-  "CMakeFiles/Assign_4.dir/loginprogram.cpp.o.d"
+  "CMakeFiles/Assign_4.dir/loginprogram.cpp.obj"
+  "CMakeFiles/Assign_4.dir/loginprogram.cpp.obj.d"
+  "libAssign_4.dll.a"
 )
 
 # Per-language clean rules from dependency scanning.
