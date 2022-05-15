@@ -1,0 +1,3 @@
+/media/nour/New Volume/FCI/Programming-1/assignment-4/Login_Program/cmake-build-debug/CMakeFiles/Assign_4.dir
+/media/nour/New Volume/FCI/Programming-1/assignment-4/Login_Program/cmake-build-debug/CMakeFiles/edit_cache.dir
+/media/nour/New Volume/FCI/Programming-1/assignment-4/Login_Program/cmake-build-debug/CMakeFiles/rebuild_cache.dir

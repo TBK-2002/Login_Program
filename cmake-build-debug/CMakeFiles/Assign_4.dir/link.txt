@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/Assign_4.dir/loginprogram.cpp.o -o Assign_4 
