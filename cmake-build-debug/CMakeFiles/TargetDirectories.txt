@@ -1,3 +1,0 @@
-C:/Users/Mohannad/Desktop/Assign 4.1.1/Login_Program/cmake-build-debug/CMakeFiles/Assign_4.dir
-C:/Users/Mohannad/Desktop/Assign 4.1.1/Login_Program/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/Mohannad/Desktop/Assign 4.1.1/Login_Program/cmake-build-debug/CMakeFiles/rebuild_cache.dir

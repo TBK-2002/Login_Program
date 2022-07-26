@@ -1,3 +1,0 @@
-"D:\Applications\CLion 2021.3.4\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\Assign_4.dir/objects.a
-"D:\Applications\CLion 2021.3.4\bin\mingw\bin\ar.exe" qc CMakeFiles\Assign_4.dir/objects.a @CMakeFiles\Assign_4.dir\objects1.rsp
-"D:\Applications\CLion 2021.3.4\bin\mingw\bin\g++.exe" -g -Wl,--whole-archive CMakeFiles\Assign_4.dir/objects.a -Wl,--no-whole-archive -o Assign_4.exe -Wl,--out-implib,libAssign_4.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\Assign_4.dir\linklibs.rsp
