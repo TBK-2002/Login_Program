@@ -1,7 +1,0 @@
-{}    "tasks": [
-        {
-            "type": "cppbuild",
-            "label": "C/C++: g++ build active file",
-            "command": "/usr/bin/g++",
-            "args": [
-                "-fdiagno
